@@ -38,8 +38,8 @@ jobs:
         run: |
           which go
           go version
-          export WINDOWS_AMD64_LIB_PATH="-L${MINGW_PREFIX}/lib -I${MINGW_PREFIX}/include"
-          make windows-amd64
+               make windows-amd64 WINDOWS_AMD64_LIB_PATH="-L${MSYSTEM_PREFIX}/lib -I${MSYSTEM_PREFIX}/include"
+
           ls -lah bin
 
       - name: Upload exe
