@@ -38,16 +38,16 @@ jobs:
             mingw-w64-x86_64-taglib
             mingw-w64-x86_64-zlib
 
-    - name: Debug directories
-      shell: msys2 {0}
-      run: |
-        echo "MSYSTEM_PREFIX: $MSYSTEM_PREFIX"
-        echo "MINGW_PREFIX: $MINGW_PREFIX"
-        echo "Listing root directory"
-        ls -al /
-        echo "Listing MSYS2 /mingw64"
-        ls -al /mingw64 || true
-        echo "Listing MINGW_PREFIX directory"
+  - name: Debug directories
+        shell: msys2 {0}
+          run: |
+          echo "MSYSTEM_PREFIX: $MSYSTEM_PREFIX"
+            echo "MINGW_PREFIX: $MINGW_PREFIX"
+          echo "Listing root directory"
+          ls -al /
+            echo "Listing MSYS2 /mingw64"
+          ls -al /mingw64 || true
+          echo "Listing MINGW_PREFIX directory"
         ls -al "$MINGW_PREFIX" || true
         echo "Listing MSYSTEM_PREFIX"
         ls -al "$MSYSTEM_PREFIX" || true
