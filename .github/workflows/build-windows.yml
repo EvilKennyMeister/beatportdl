@@ -38,13 +38,13 @@ jobs:
             mingw-w64-x86_64-zlib
 
       - name: Build windows-amd64
-  shell: msys2 {0}
-  run: |
-    export PATH="$(cygpath -u "$GOROOT")/bin:$PATH"
-    export WINDOWS_AMD64_LIB_PATH="-L/mingw64/lib -I/mingw64/include"
-    go version
-    make windows-amd64
-    ls -lah bin
+        shell: msys2 {0}
+        run: |
+          export PATH="$(cygpath -u "$GOROOT")/bin:$PATH"
+          export WINDOWS_AMD64_LIB_PATH="-L/mingw64/lib -I/mingw64/include"
+          go version
+          make windows-amd64
+          ls -lah bin
 
       - name: Upload exe
         uses: actions/upload-artifact@v4
