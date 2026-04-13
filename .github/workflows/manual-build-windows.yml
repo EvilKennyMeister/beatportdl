@@ -1,0 +1,49 @@
+name: Build BeatportDL for Windows (manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Setup Zig
+        uses: mlugg/setup-zig@v1
+        with:
+          version: 0.14.0
+
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          path-type: inherit
+          update: true
+          install: >-
+            make
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-taglib
+            mingw-w64-x86_64-zlib
+
+      - name: Build windows-amd64
+        shell: msys2 {0}
+        run: |
+          which go
+          go version
+          export WINDOWS_AMD64_LIB_PATH="-L${MINGW_PREFIX}/lib -I${MINGW_PREFIX}/include"
+          make windows-amd64
+          ls -lah bin
+
+      - name: Upload exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: beatportdl-windows-amd64
+          path: bin/beatportdl-windows-amd64.exe
